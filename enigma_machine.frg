@@ -1,4 +1,6 @@
-#lang forge
+#lang forge/temporal
+
+option run_sterling "enigma.js"
 
 ---------- Sigs ----------
 
@@ -11,10 +13,11 @@ abstract sig Rotor extends Permutation {
     start: one Int 
 }
  
-one sig Reflector extends Permutation{}
+one sig Plugboard extends Permutation{}
 one sig Rotor1 extends Rotor{}
 one sig Rotor2 extends Rotor{}
 one sig Rotor3 extends Rotor{}
+one sig Reflector extends Permutation{}
 
 -- TODO abstract this so that it updates as rotors turn
 one sig Encryption extends Permutation{}
@@ -37,6 +40,13 @@ pred isPermutation[p : Permutation] {
     }
 }
 
+pred isPlugboard {
+    isPermutation[Plugboard]
+    all x,y: Int | {
+        ((x->y) in Plugboard.map) => ((y->x) in Plugboard.map)
+    }
+}
+
 pred isRotor[p : Permutation] {
     isPermutation[p]
     all x: Int | {
@@ -52,6 +62,7 @@ pred isReflector {
 }
 
 pred validEnigma {
+    isPlugboard
     isRotor[Rotor1]
     isRotor[Rotor2]
     isRotor[Rotor3]
@@ -89,4 +100,4 @@ assert {validEnigma and isEncryption} is sufficient for isSymmetric for 2 Int
 
 
 
-run {validEnigma and isEncryption} for 3 Int
+run {validEnigma and isEncryption} for 2 Int
