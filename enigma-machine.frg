@@ -53,8 +53,8 @@ pred isPlugboard {
     }
 }
 
-pred isRotor[p : Permutation] {
-    isPermutation[p]
+pred isRotor[r: Rotor] {
+    isPermutation[r]
 
     -- Letters in rotors cannot map to themselves
     all x: Int | {
@@ -67,7 +67,7 @@ pred isRotor[p : Permutation] {
 }
 
 pred isReflector {
-    isRotor[Reflector]
+    isPermutation[Reflector]
 
     -- Reflector should be symmetric
     all x, y: Int | {
