@@ -1,6 +1,6 @@
 # Enigma Machine
 
-![](./literal-model.png)
+![](./collage.webp)
 
 ## Introduction
 
@@ -12,7 +12,7 @@ The Enigma machine is an evolving substitution cipher, where after every input t
 
 After inputting each letter, one or more of rotors rotates, resulting in a new permutation to change. This means that traits of the plaintext language are not present in the ciphertext (e.g., the repeated letters in BOOK wouldn't be repeated after encryption).
 
-In the actual machine, the reflector sends the letter through the encryption process again in reverse. In our model, the reflector is a special fixed permutation where if a letter x maps to a letter y through the plugboard and rotors, then y maps to x after going through the reflector. This is important because it allows for decryption. Lastly, the plugboard is an easily-configurable permutation that makes messages more difficult to decode—the rotors are physical components that can be swapped, but only within a limited set.
+In the actual machine, the reflector sends the letter through the encryption process again in reverse. In our model, the reflector is a special fixed permutation where if a letter x maps to a letter y through the plugboard and rotors, then y maps to x after going through the reflector. This is important because it allows for decryption. Lastly, the plugboard is an easily-configurable permutation that makes messages more difficult to decode—the rotors are physical components that can be swapped, but with, compared to the plugboard, greater effort and limited entropy.
 
 When a key is pressed, the letter goes through:
 
@@ -23,9 +23,13 @@ When a key is pressed, the letter goes through:
 
 and the the enigma machine returns the resulting letter. Note that there are many variants of the enigma machine but this is the one we chose to model.
 
-## Model and Visualization
+## Models and Visualizations
 
-We model the encryption of a single letter. In place of the actual alphabet we use Int. Our model will work for any number of Int bits but the running time will quickly become an issue. The basic structure in our model is the permutation which is an abstract struct. We additionally define structs for each of the three rotors, the plugboard, and the reflector. Each of these is a permutation with some extra properties. The rotors have no fixed points, the plug board is symmetric, and the reflector is both of these. Lastly, we have a struct for the encryption. The encryption is also a permutation that maps each letter to what it encrypts to. We require the encryption to respect the structure of the enigma machine. There is only one possible encryption for a given enigma machine so the encryption is completely defined by the enigma machine. We also include a visualization of the enigma machine. It shows how a letter moves through the sequence of permutations and what letter it comes out as on the other side.
+### `abstract-model.frg`
+
+Our models represent the encryption of a single letter. We use `Int` to represent letters. Our model works for any size integer, but the running time quickly becomes an issue. The basic structure in our model is `Permutation`, which is an abstract sig that represents a bijective mapping of letters. We also have sigs for each of the three rotors, the plugboard, and the reflector. Each of these is a `Permutation` with some extra properties—the rotors have no fixed points, the plug board is symmetric, and the reflector is both.
+
+Lastly, we have an `Encryption` sig, which is also a `Permutation` that maps each letter to what it encrypts to at that point in time. We require the encryption to respect the structure of the Enigma machine. There is only one possible encryption for a given Enigma machine so the encryption is completely defined by the Enigma machine. We also included a visualization that shows how a letter moves through the sequence of permutations and what it is ultimately encoded as.
 
 ## Proving Properties
 
