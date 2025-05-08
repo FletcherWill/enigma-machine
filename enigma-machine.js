@@ -524,7 +524,7 @@ for (let i = 0; i < instances.length; i++) {
 
     let rotor3RightOutUpColors = ['black', 'black', 'black', 'black'];
     rotor3Permutation.forEach(swap => {
-        let [fro, to] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor3Start + NUM_KEYS) % NUM_KEYS);
+        let [to, fro] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor3Start + NUM_KEYS) % NUM_KEYS);
         rotor3RightOutUpColors[to] = rotor3RightColors[fro];
         rotor3MidRightDownToUpLines[fro].obj2 = upToRotor3MidRight[to];
     });
@@ -608,7 +608,7 @@ for (let i = 0; i < instances.length; i++) {
     let rotor2RightOutUpColors = ['black', 'black', 'black', 'black'];
 
     rotor2Permutation.forEach(swap => {
-        let [fro, to] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor2Start + NUM_KEYS) % NUM_KEYS);
+        let [to, fro] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor2Start + NUM_KEYS) % NUM_KEYS);
         rotor2RightOutUpColors[to] = rotor2RightColors[fro];
         rotor2MidRightDownToUpLines[fro].obj2 = upToRotor2MidRight[to];
     });
@@ -691,7 +691,7 @@ for (let i = 0; i < instances.length; i++) {
     let rotor1RightOutUpColors = ['black', 'black', 'black', 'black'];
 
     rotor1Permutation.forEach(swap => {
-        let [fro, to] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor1Start + NUM_KEYS) % NUM_KEYS);
+        let [to, fro] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor1Start + NUM_KEYS) % NUM_KEYS);
         rotor1RightOutUpColors[to] = rotor1RightColors[fro];
         rotor1MidRightDownToUpLines[fro].obj2 = upToRotor1MidRight[to];
     });
@@ -774,7 +774,7 @@ for (let i = 0; i < instances.length; i++) {
 
     let outputColors = ['black', 'black', 'black', 'black'];
     plugboardPermutation.forEach(swap => {
-        let [fro, to] = swap.toString().split(', ').map(Number).map(x => x + 2);
+        let [to, fro] = swap.toString().split(', ').map(Number).map(x => x + 2);
         outputColors[to] = plugboardRightColors[fro];
         plugboardRightToOutputLines[fro].obj2 = upToOutput[to];
     });

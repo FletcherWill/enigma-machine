@@ -1,7 +1,7 @@
 #lang forge
 
 option run_sterling "enigma-machine.js"
--- option solver Glucose
+option solver Glucose
 
 ---------- Sigs ----------
 
