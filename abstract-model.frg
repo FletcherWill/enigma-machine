@@ -1,4 +1,4 @@
-#lang forge/temporal
+#lang forge
 
 option run_sterling "abstract-model.js"
 
@@ -35,8 +35,6 @@ pred isPermutation[p : Permutation] {
     all x, y, z: Int | {
         (((y->x) in p.map) and ((z->x) in p.map)) => (y=z)
     }
-
-    -- Note: It is not an explicit property that no letter maps to itself
 }
 
 pred isPlugboard {
