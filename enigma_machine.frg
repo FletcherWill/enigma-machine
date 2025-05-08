@@ -1,6 +1,7 @@
-#lang forge/temporal
+#lang forge
 
 option run_sterling "enigma.js"
+option solver Glucose
 
 ---------- Sigs ----------
 
@@ -86,10 +87,10 @@ pred isEncryption {
                         .(Rotor2.shift).(Rotor2.map).~(Rotor2.shift)
                         .(Rotor3.shift).(Rotor3.map).~(Rotor3.shift)
                         .(Reflector.map)
-                        .(Rotor3.shift).(Rotor3.map).~(Rotor3.shift)
-                        .(Rotor2.shift).(Rotor2.map).~(Rotor2.shift)
-                        .(Rotor1.shift).(Rotor1.map).~(Rotor1.shift)
-                        .(Plugboard.map)
+                        .(Rotor3.shift).~(Rotor3.map).~(Rotor3.shift)
+                        .(Rotor2.shift).~(Rotor2.map).~(Rotor2.shift)
+                        .(Rotor1.shift).~(Rotor1.map).~(Rotor1.shift)
+                        .~(Plugboard.map)
 }
 
 ---------- Tests ----------
