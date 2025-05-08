@@ -1,6 +1,6 @@
 # Enigma Machine
 
-![](./collage.webp)
+![](./collage.jpg)
 
 ## Introduction
 
