@@ -3,7 +3,7 @@
 option max_tracelength 4
 option min_tracelength 4
 
-option run_sterling "machine.js"
+option run_sterling "literal-model.js"
 
 // https://people.physik.hu-berlin.de/~palloks/js/enigma/enigma-u_v20_en.html
 

@@ -17,39 +17,39 @@ const intToLetter = {
 
 const NUM_KEYS = 4;
 
-const colors = [ 'black', 'red', 'green', 'blue' ]
+const colors = ['black', 'red', 'green', 'blue']
 
 for (let i = 0; i < instances.length; i++) {
     const instance = instances[i]
 
-    let buttons = Array.from({ length: NUM_KEYS}, (_, index) => 
+    let buttons = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 20,
             color: 'white',
             borderColor: colors[index],
-            center: { x: 50 + index * 50, y: 30 + 800*i },
+            center: { x: 50 + index * 50, y: 30 + 800 * i },
             label: intToLetter[index],
             labelColor: 'black'
         })
     );
     buttons.forEach(button => stage.add(button));
 
-    let upFromButton = Array.from({ length: NUM_KEYS}, (_, index) => 
+    let upFromButton = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 60 + 800*i },
+            center: { x: 50 + index * 50, y: 60 + 800 * i },
             color: 'black'
         })
     );
-    let downToPlugboard = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToPlugboard = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 80 + 800*i },
+            center: { x: 50 + index * 50, y: 80 + 800 * i },
             color: 'black'
         })
     );
     let plugboardPermutation = instance.signature('Plugboard').join(instance.field('map')).tuples();
-    let buttonToPlugboardLines = Array.from({length: NUM_KEYS}, (_, index) => 
+    let buttonToPlugboardLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromButton[index],
             obj2: downToPlugboard[index],
@@ -66,11 +66,11 @@ for (let i = 0; i < instances.length; i++) {
         buttonToPlugboardLines[fro].obj2 = downToPlugboard[to];
     });
 
-    let plugboard = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let plugboard = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 90 + 800*i },
+            coords: { x: 30 + index * 50, y: 90 + 800 * i },
             color: 'white',
             borderColor: plugboardColors[index],
             label: intToLetter[index],
@@ -81,21 +81,21 @@ for (let i = 0; i < instances.length; i++) {
     buttonToPlugboardLines.forEach(line => stage.add(line));
     plugboard.forEach(plug => stage.add(plug));
 
-    upFromPlugboard = Array.from({ length: NUM_KEYS}, (_, index) =>
+    upFromPlugboard = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 140 + 800*i },
+            center: { x: 50 + index * 50, y: 140 + 800 * i },
             color: 'black'
         })
     );
-    downToRotor1 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    downToRotor1 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 160 + 800*i },
+            center: { x: 50 + index * 50, y: 160 + 800 * i },
             color: 'black'
         })
     );
-    plugboardToRotor1Lines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    plugboardToRotor1Lines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromPlugboard[index],
             obj2: downToRotor1[index],
@@ -106,11 +106,11 @@ for (let i = 0; i < instances.length; i++) {
     let rotor1Start = Number(instance.signature('Rotor1').join(instance.field('start')).tuples()[0]) + 2;
     let rotor1Keys = plugboardKeys.map(key => (key + rotor1Start) % NUM_KEYS);
     let rotor1Colors = plugboardColors;
-    let rotor1 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 170 + 800*i },
+            coords: { x: 30 + index * 50, y: 170 + 800 * i },
             color: 'white',
             borderColor: rotor1Colors[index],
             label: intToLetter[rotor1Keys[index]],
@@ -121,21 +121,21 @@ for (let i = 0; i < instances.length; i++) {
     plugboardToRotor1Lines.forEach(line => stage.add(line));
     rotor1.forEach(rotor => stage.add(rotor));
 
-    upFromRotor1Mid = Array.from({ length: NUM_KEYS}, (_, index) =>
+    upFromRotor1Mid = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 220 + 800*i },
+            center: { x: 50 + index * 50, y: 220 + 800 * i },
             color: 'black'
         })
     );
-    let downToRotor1Mid = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRotor1Mid = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 240 + 800*i },
+            center: { x: 50 + index * 50, y: 240 + 800 * i },
             color: 'black'
         })
     );
-    let rotor1MidUpToDownLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1MidUpToDownLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromRotor1Mid[index],
             obj2: downToRotor1Mid[index],
@@ -145,18 +145,18 @@ for (let i = 0; i < instances.length; i++) {
     );
 
     let rotor1Permutation = instance.signature('Rotor1').join(instance.field('map')).tuples();
-    let rotor1OutDownColors = ['black', 'black', 'black', 'black'];    
+    let rotor1OutDownColors = ['black', 'black', 'black', 'black'];
     rotor1Permutation.forEach(swap => {
         let [fro, to] = swap.toString().split(', ').map(Number).map(x => (x + 2 - rotor1Start + NUM_KEYS) % NUM_KEYS);
         rotor1OutDownColors[to] = rotor1Colors[fro];
         rotor1MidUpToDownLines[fro].obj2 = downToRotor1Mid[to];
     });
 
-    let rotor1OutDown = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1OutDown = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 250 + 800*i },
+            coords: { x: 30 + index * 50, y: 250 + 800 * i },
             color: 'white',
             borderColor: rotor1OutDownColors[index],
             label: intToLetter[rotor1Keys[index]],
@@ -168,21 +168,21 @@ for (let i = 0; i < instances.length; i++) {
     rotor1MidUpToDownLines.forEach(line => stage.add(line));
     rotor1OutDown.forEach(rotor => stage.add(rotor));
 
-    let upFromRotor1 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upFromRotor1 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 300 + 800*i },
+            center: { x: 50 + index * 50, y: 300 + 800 * i },
             color: 'black'
         })
     );
-    let downToRotor2 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRotor2 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 320 + 800*i },
+            center: { x: 50 + index * 50, y: 320 + 800 * i },
             color: 'black'
         })
     );
-    let rotor1ToRotor2Lines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1ToRotor2Lines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromRotor1[index],
             obj2: downToRotor2[index],
@@ -195,11 +195,11 @@ for (let i = 0; i < instances.length; i++) {
     let rotor2Start = Number(instance.signature('Rotor2').join(instance.field('start')).tuples()[0]) + 2;
     let rotor2Keys = plugboardKeys.map(key => (key + rotor2Start) % NUM_KEYS);
     let rotor2Colors = rotor1OutDownColors;
-    rotor2 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    rotor2 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 330 + 800*i },
+            coords: { x: 30 + index * 50, y: 330 + 800 * i },
             color: 'white',
             borderColor: rotor2Colors[index],
             label: intToLetter[rotor2Keys[index]],
@@ -209,21 +209,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     rotor2.forEach(rotor => stage.add(rotor));
 
-    let upFromRotor2Mid = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upFromRotor2Mid = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 380 + 800*i },
+            center: { x: 50 + index * 50, y: 380 + 800 * i },
             color: 'black'
         })
     );
-    let downToRotor2Mid = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRotor2Mid = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 400 + 800*i },
+            center: { x: 50 + index * 50, y: 400 + 800 * i },
             color: 'black'
         })
     );
-    let rotor2MidUpToDownLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2MidUpToDownLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromRotor2Mid[index],
             obj2: downToRotor2Mid[index],
@@ -238,11 +238,11 @@ for (let i = 0; i < instances.length; i++) {
         rotor2OutDownColors[to] = rotor2Colors[fro];
         rotor2MidUpToDownLines[fro].obj2 = downToRotor2Mid[to];
     });
-    let rotor2OutDown = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2OutDown = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 410 + 800*i },
+            coords: { x: 30 + index * 50, y: 410 + 800 * i },
             color: 'white',
             borderColor: rotor2OutDownColors[index],
             label: intToLetter[rotor2Keys[index]],
@@ -253,21 +253,21 @@ for (let i = 0; i < instances.length; i++) {
     rotor2MidUpToDownLines.forEach(line => stage.add(line));
     rotor2OutDown.forEach(rotor => stage.add(rotor));
 
-    let upFromRotor2 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upFromRotor2 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 460 + 800*i },
+            center: { x: 50 + index * 50, y: 460 + 800 * i },
             color: 'black'
         })
     );
-    let downToRotor3 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRotor3 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 480 + 800*i },
+            center: { x: 50 + index * 50, y: 480 + 800 * i },
             color: 'black'
         })
     );
-    let rotor2ToRotor3Lines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2ToRotor3Lines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromRotor2[index],
             obj2: downToRotor3[index],
@@ -281,11 +281,11 @@ for (let i = 0; i < instances.length; i++) {
     let rotor3Keys = plugboardKeys.map(key => (key + rotor3Start) % NUM_KEYS);
     let rotor3Colors = rotor2OutDownColors;
 
-    rotor3 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    rotor3 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 490 + 800*i },
+            coords: { x: 30 + index * 50, y: 490 + 800 * i },
             color: 'white',
             borderColor: rotor3Colors[index],
             label: intToLetter[rotor3Keys[index]],
@@ -295,21 +295,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     rotor3.forEach(rotor => stage.add(rotor));
 
-    let upFromRotor3Mid = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upFromRotor3Mid = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 540 + 800*i },
+            center: { x: 50 + index * 50, y: 540 + 800 * i },
             color: 'black'
         })
     );
-    let downToRotor3Mid = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRotor3Mid = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 560 + 800*i },
+            center: { x: 50 + index * 50, y: 560 + 800 * i },
             color: 'black'
         })
     );
-    let rotor3MidUpToDownLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3MidUpToDownLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromRotor3Mid[index],
             obj2: downToRotor3Mid[index],
@@ -327,11 +327,11 @@ for (let i = 0; i < instances.length; i++) {
         rotor3MidUpToDownLines[fro].obj2 = downToRotor3Mid[to];
     });
 
-    let rotor3OutDown = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3OutDown = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 30 + index * 50, y: 570 + 800*i },
+            coords: { x: 30 + index * 50, y: 570 + 800 * i },
             color: 'white',
             borderColor: rotor3OutDownColors[index],
             label: intToLetter[rotor3Keys[index]],
@@ -342,28 +342,28 @@ for (let i = 0; i < instances.length; i++) {
     rotor3MidUpToDownLines.forEach(line => stage.add(line));
     rotor3OutDown.forEach(rotor => stage.add(rotor));
 
-    let upFromRotor3 = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upFromRotor3 = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 610 + 800*i },
+            center: { x: 50 + index * 50, y: 610 + 800 * i },
             color: 'black'
         })
     );
-    let downTo = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downTo = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 50 + index * 50, y: 650 + 50*index + 800*i },
+            center: { x: 50 + index * 50, y: 650 + 50 * index + 800 * i },
             color: 'black'
         })
     );
-    let rightTo = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rightTo = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 240, y: 650 + 50*index + 800*i },
+            center: { x: 240, y: 650 + 50 * index + 800 * i },
             color: 'black'
         })
     );
-    let rotor3ToDown = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3ToDown = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: upFromRotor3[index],
             obj2: downTo[index],
@@ -371,7 +371,7 @@ for (let i = 0; i < instances.length; i++) {
             width: 1
         })
     );
-    let downToRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downTo[index],
             obj2: rightTo[index],
@@ -383,11 +383,11 @@ for (let i = 0; i < instances.length; i++) {
     downToRight.forEach(line => stage.add(line));
 
     let reflectorColors = rotor3OutDownColors;
-    let reflectorLeft = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let reflectorLeft = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 240, y: 630 + 50*index + 800*i },
+            coords: { x: 240, y: 630 + 50 * index + 800 * i },
             color: 'white',
             borderColor: reflectorColors[index],
             label: intToLetter[index],
@@ -397,21 +397,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     reflectorLeft.forEach(reflector => stage.add(reflector));
 
-    let leftFromReflector = Array.from({ length: NUM_KEYS}, (_, index) => 
+    let leftFromReflector = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 290, y: 650 + 50*index + 800*i },
+            center: { x: 290, y: 650 + 50 * index + 800 * i },
             color: 'black'
         })
     );
-    let rightToReflector = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rightToReflector = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 310, y: 650 + 50*index + 800*i },
+            center: { x: 310, y: 650 + 50 * index + 800 * i },
             color: 'black'
         })
     );
-    let reflectorToRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let reflectorToRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: leftFromReflector[index],
             obj2: rightToReflector[index],
@@ -427,11 +427,11 @@ for (let i = 0; i < instances.length; i++) {
         reflectorRightColors[to] = reflectorColors[fro];
         reflectorToRight[fro].obj2 = rightToReflector[to];
     });
-    let reflectorRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let reflectorRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 320, y: 630 + 50*index + 800*i },
+            coords: { x: 320, y: 630 + 50 * index + 800 * i },
             color: 'white',
             borderColor: reflectorRightColors[index],
             label: intToLetter[index],
@@ -442,28 +442,28 @@ for (let i = 0; i < instances.length; i++) {
     reflectorToRight.forEach(line => stage.add(line));
     reflectorRight.forEach(reflector => stage.add(reflector));
 
-    let leftFrom = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let leftFrom = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 360, y: 650 + 50*index + 800*i },
+            center: { x: 360, y: 650 + 50 * index + 800 * i },
             color: 'black'
         })
     );
-    let downFrom = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFrom = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 650 + 50*index + 800*i },
+            center: { x: 400 + 50 * index, y: 650 + 50 * index + 800 * i },
             color: 'black'
         })
     );
-    let upTo = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upTo = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 610 + 800*i },
+            center: { x: 400 + 50 * index, y: 610 + 800 * i },
             color: 'black'
         })
     );
-    let leftToDown = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let leftToDown = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: leftFrom[index],
             obj2: downFrom[index],
@@ -471,7 +471,7 @@ for (let i = 0; i < instances.length; i++) {
             width: 1
         })
     );
-    let downToRotor3Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downToRotor3Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFrom[index],
             obj2: upTo[index],
@@ -483,11 +483,11 @@ for (let i = 0; i < instances.length; i++) {
     downToRotor3Right.forEach(line => stage.add(line));
 
     let rotor3RightColors = reflectorRightColors;
-    let rotor3Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 570 + 800*i },
+            coords: { x: 380 + 50 * index, y: 570 + 800 * i },
             color: 'white',
             borderColor: rotor3RightColors[index],
             label: intToLetter[rotor3Keys[index]],
@@ -497,21 +497,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     rotor3Right.forEach(rotor => stage.add(rotor));
 
-    let downFromRotor3MidRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromRotor3MidRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 560 + 800*i },
+            center: { x: 400 + 50 * index, y: 560 + 800 * i },
             color: 'black'
         })
     );
-    let upToRotor3MidRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToRotor3MidRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 540 + 800*i },
+            center: { x: 400 + 50 * index, y: 540 + 800 * i },
             color: 'black'
         })
     );
-    let rotor3MidRightDownToUpLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3MidRightDownToUpLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromRotor3MidRight[index],
             obj2: upToRotor3MidRight[index],
@@ -527,11 +527,11 @@ for (let i = 0; i < instances.length; i++) {
         rotor3MidRightDownToUpLines[fro].obj2 = upToRotor3MidRight[to];
     });
 
-    let rotor3RightOutUp = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3RightOutUp = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 490 + 800*i },
+            coords: { x: 380 + 50 * index, y: 490 + 800 * i },
             color: 'white',
             borderColor: rotor3RightOutUpColors[index],
             label: intToLetter[rotor3Keys[index]],
@@ -542,21 +542,21 @@ for (let i = 0; i < instances.length; i++) {
     rotor3MidRightDownToUpLines.forEach(line => stage.add(line));
     rotor3RightOutUp.forEach(rotor => stage.add(rotor));
 
-    let downFromRotor3Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromRotor3Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 480 + 800*i },
+            center: { x: 400 + 50 * index, y: 480 + 800 * i },
             color: 'black'
         })
     );
-    let upToRotor2Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToRotor2Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 460 + 800*i },
+            center: { x: 400 + 50 * index, y: 460 + 800 * i },
             color: 'black'
         })
     );
-    let rotor3RightToRotor2RightLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor3RightToRotor2RightLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromRotor3Right[index],
             obj2: upToRotor2Right[index],
@@ -567,11 +567,11 @@ for (let i = 0; i < instances.length; i++) {
     rotor3RightToRotor2RightLines.forEach(line => stage.add(line));
 
     let rotor2RightColors = rotor3RightOutUpColors;
-    let rotor2Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 410 + 800*i },
+            coords: { x: 380 + 50 * index, y: 410 + 800 * i },
             color: 'white',
             borderColor: rotor2RightColors[index],
             label: intToLetter[rotor2Keys[index]],
@@ -581,21 +581,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     rotor2Right.forEach(rotor => stage.add(rotor));
 
-    let downFromRotor2MidRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromRotor2MidRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 400 + 800*i },
+            center: { x: 400 + 50 * index, y: 400 + 800 * i },
             color: 'black'
         })
     );
-    let upToRotor2MidRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToRotor2MidRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 380 + 800*i },
+            center: { x: 400 + 50 * index, y: 380 + 800 * i },
             color: 'black'
         })
     );
-    let rotor2MidRightDownToUpLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2MidRightDownToUpLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromRotor2MidRight[index],
             obj2: upToRotor2MidRight[index],
@@ -610,11 +610,11 @@ for (let i = 0; i < instances.length; i++) {
         rotor2RightOutUpColors[to] = rotor2RightColors[fro];
         rotor2MidRightDownToUpLines[fro].obj2 = upToRotor2MidRight[to];
     });
-    let rotor2RightOutUp = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2RightOutUp = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 330 + 800*i },
+            coords: { x: 380 + 50 * index, y: 330 + 800 * i },
             color: 'white',
             borderColor: rotor2RightOutUpColors[index],
             label: intToLetter[rotor2Keys[index]],
@@ -625,21 +625,21 @@ for (let i = 0; i < instances.length; i++) {
     rotor2MidRightDownToUpLines.forEach(line => stage.add(line));
     rotor2RightOutUp.forEach(rotor => stage.add(rotor));
 
-    let downFromRotor2Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromRotor2Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 320 + 800*i },
+            center: { x: 400 + 50 * index, y: 320 + 800 * i },
             color: 'black'
         })
     );
-    let upToRotor1Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToRotor1Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 300 + 800*i },
+            center: { x: 400 + 50 * index, y: 300 + 800 * i },
             color: 'black'
         })
     );
-    let rotor2RightToRotor1RightLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor2RightToRotor1RightLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromRotor2Right[index],
             obj2: upToRotor1Right[index],
@@ -650,11 +650,11 @@ for (let i = 0; i < instances.length; i++) {
     rotor2RightToRotor1RightLines.forEach(line => stage.add(line));
 
     let rotor1RightColors = rotor2RightOutUpColors;
-    let rotor1Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 250 + 800*i },
+            coords: { x: 380 + 50 * index, y: 250 + 800 * i },
             color: 'white',
             borderColor: rotor1RightColors[index],
             label: intToLetter[rotor1Keys[index]],
@@ -664,21 +664,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     rotor1Right.forEach(rotor => stage.add(rotor));
 
-    let downFromRotor1MidRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromRotor1MidRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 240 + 800*i },
+            center: { x: 400 + 50 * index, y: 240 + 800 * i },
             color: 'black'
         })
     );
-    let upToRotor1MidRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToRotor1MidRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 220 + 800*i },
+            center: { x: 400 + 50 * index, y: 220 + 800 * i },
             color: 'black'
         })
     );
-    let rotor1MidRightDownToUpLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1MidRightDownToUpLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromRotor1MidRight[index],
             obj2: upToRotor1MidRight[index],
@@ -693,11 +693,11 @@ for (let i = 0; i < instances.length; i++) {
         rotor1RightOutUpColors[to] = rotor1RightColors[fro];
         rotor1MidRightDownToUpLines[fro].obj2 = upToRotor1MidRight[to];
     });
-    let rotor1RightOutUp = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1RightOutUp = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 170 + 800*i },
+            coords: { x: 380 + 50 * index, y: 170 + 800 * i },
             color: 'white',
             borderColor: rotor1RightOutUpColors[index],
             label: intToLetter[rotor1Keys[index]],
@@ -708,21 +708,21 @@ for (let i = 0; i < instances.length; i++) {
     rotor1MidRightDownToUpLines.forEach(line => stage.add(line));
     rotor1RightOutUp.forEach(rotor => stage.add(rotor));
 
-    let downFromRotor1Right = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromRotor1Right = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 160 + 800*i },
+            center: { x: 400 + 50 * index, y: 160 + 800 * i },
             color: 'black'
         })
     );
-    let upToPlugboardRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToPlugboardRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 140 + 800*i },
+            center: { x: 400 + 50 * index, y: 140 + 800 * i },
             color: 'black'
         })
     );
-    let rotor1RightToPlugboardRightLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let rotor1RightToPlugboardRightLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromRotor1Right[index],
             obj2: upToPlugboardRight[index],
@@ -733,11 +733,11 @@ for (let i = 0; i < instances.length; i++) {
     rotor1RightToPlugboardRightLines.forEach(line => stage.add(line));
 
     let plugboardRightColors = rotor1RightOutUpColors;
-    let plugboardRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let plugboardRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Rectangle({
             width: 40,
             height: 40,
-            coords: { x: 380 + 50*index, y: 90 + 800*i },
+            coords: { x: 380 + 50 * index, y: 90 + 800 * i },
             color: 'white',
             borderColor: plugboardRightColors[index],
             label: intToLetter[index],
@@ -747,21 +747,21 @@ for (let i = 0; i < instances.length; i++) {
     );
     plugboardRight.forEach(plug => stage.add(plug));
 
-    let downFromPlugboardRight = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let downFromPlugboardRight = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 80 + 800*i },
+            center: { x: 400 + 50 * index, y: 80 + 800 * i },
             color: 'black'
         })
     );
-    let upToOutput = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let upToOutput = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 0,
-            center: { x: 400 + 50*index, y: 60 + 800*i },
+            center: { x: 400 + 50 * index, y: 60 + 800 * i },
             color: 'black'
         })
     );
-    let plugboardRightToOutputLines = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let plugboardRightToOutputLines = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Edge({
             obj1: downFromPlugboardRight[index],
             obj2: upToOutput[index],
@@ -777,12 +777,12 @@ for (let i = 0; i < instances.length; i++) {
         plugboardRightToOutputLines[fro].obj2 = upToOutput[to];
     });
 
-    let output = Array.from({ length: NUM_KEYS}, (_, index) =>
+    let output = Array.from({ length: NUM_KEYS }, (_, index) =>
         new Circle({
             radius: 20,
             color: 'white',
             borderColor: outputColors[index],
-            center: { x: 400 + 50*index, y: 30 + 800*i },
+            center: { x: 400 + 50 * index, y: 30 + 800 * i },
             label: intToLetter[index],
             labelColor: 'black'
         })
@@ -792,42 +792,42 @@ for (let i = 0; i < instances.length; i++) {
 
     let keyboardOutputText = new TextBox({
         text: 'Keyboard/Output',
-        coords: { x: 700, y: 30 + 800*i },
+        coords: { x: 700, y: 30 + 800 * i },
         color: 'black',
         fontSize: 20,
     });
     stage.add(keyboardOutputText);
     let plugboardText = new TextBox({
         text: 'Plugboard',
-        coords: { x: 700, y: 110 + 800*i },
+        coords: { x: 700, y: 110 + 800 * i },
         color: 'black',
         fontSize: 20,
     });
     stage.add(plugboardText);
     let rotor1Text = new TextBox({
         text: 'Rotor 1',
-        coords: { x: 700, y: 230 + 800*i },
+        coords: { x: 700, y: 230 + 800 * i },
         color: 'black',
         fontSize: 20,
     });
     stage.add(rotor1Text);
     let rotor2Text = new TextBox({
         text: 'Rotor 2',
-        coords: { x: 700, y: 390 + 800*i },
+        coords: { x: 700, y: 390 + 800 * i },
         color: 'black',
         fontSize: 20,
     });
     stage.add(rotor2Text);
     let rotor3Text = new TextBox({
         text: 'Rotor 3',
-        coords: { x: 700, y: 550 + 800*i },
+        coords: { x: 700, y: 550 + 800 * i },
         color: 'black',
         fontSize: 20,
     });
     stage.add(rotor3Text);
     let reflectorText = new TextBox({
         text: 'Reflector',
-        coords: { x: 700, y: 720 + 800*i },
+        coords: { x: 700, y: 720 + 800 * i },
         color: 'black',
         fontSize: 20,
     });

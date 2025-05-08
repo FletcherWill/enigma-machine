@@ -1,6 +1,6 @@
 #lang forge/temporal
 
-option run_sterling "enigma.js"
+option run_sterling "abstract-model.js"
 
 ---------- Sigs ----------
 
