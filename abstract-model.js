@@ -21,6 +21,8 @@ const colors = ['black', 'red', 'green', 'blue']
 
 const instances = [instance];
 
+const instances = [instance];
+
 for (let i = 0; i < instances.length; i++) {
     const instance = instances[i]
 

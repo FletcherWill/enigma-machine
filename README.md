@@ -21,11 +21,7 @@ When a key is pressed, the letter goes through:
 3. the reflector (the three rotors in reverse order)
 5. the plugboard
 
-and the the enigma machine returns the resulting letter. Note that there are many variants of the enigma machine but this is the one we chose to model.
-
 ## Models and Visualizations
-
-### `abstract-model.frg`
 
 Our models represent the encryption of a single letter. We use `Int` to represent letters. Our model works for any size integer, but the running time quickly becomes an issue. The basic structure in our model is `Permutation`, which is an abstract sig that represents a bijective mapping of letters. We also have sigs for each of the three rotors, the plugboard, and the reflector. Each of these is a `Permutation` with some extra properties—the rotors have no fixed points, the plug board is symmetric, and the reflector is both.
 
@@ -33,15 +29,15 @@ Lastly, we have an `Encryption` sig, which is also a `Permutation` that maps eac
 
 ## Proving Properties
 
-We use our model to prove two important properties of the enigma machine:
+We use our model to test two important properties of the enigma machine:
 
 ### Symmetry
 
-If a letter x encrypted to a letter y, then letter y encrypts to x. This is important because it allows the enigma machine to decrypt messages as well as encrypt them. Simply the the encrypted message, set up the rotators and plugboard the same way as when the message was encrypted, and type the encrypted message to get back the original message. To prove this, we simply use an assert statement to prove that a valid enigma machine and its corresponding encryption must return a symmetric permutation.
+In other words, the cipher is _self-reciprocal_: If a letter x encrypted to a letter y, then letter y encrypts to x. This property allows the enigma machine to decrypt messages as well as encrypt them. To prove this, we simply use an assert statement in Forge.
 
-### No Fixed Points
+### Letters Cannot Encode As Themselves
 
-For all letters x, x does not map to x. This property turned out to be a weakness of the enigma machine that helped to crack it. To prove it we again use an assert statement to show that a valid enigma machine and message is sufficient to know that there are no fixed points.
+A number of sources point out that including the reflector introduces a new weakness to the cipher: No letter can be encrypted into itself. However, in our modeling, we successfully point out that there is even a case in which the whole cipher is an _identical map_. 
 
 ## Modeling Decisions
 
