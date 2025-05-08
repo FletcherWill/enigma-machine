@@ -1,5 +1,7 @@
 # Enigma Machine
 
+![](./literal-model.png)
+
 ## Introduction
 
 The enigma machine was used by Germany in World War II to encrypt and decrypt messages. The Allies, led by Alan Turing, were able to "crack" the enigma machine and read the German's messages, an achievement which is credited with greatly shortening and maybe even changing the outcome of the war. In this project, we modeled the Enigma machine with Forge and used our model to demonstrate important properties. Namely, we show that decryption a message is the same as "encrypting" the ciphertext, and that no letter is encoded as itself. The latter is a cryptographic weakness that the Allies were able to use to break the Enigma machine.
