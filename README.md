@@ -6,15 +6,21 @@ The enigma machine was used by Germany in WW2 to encrypt and decrypt messages. T
 
 ### Enigma Machine Background
 
-The enigma machine is a substitution cipher where after every letter the substitutoin is changed. This is implemented using a series of permutations of the letters called rotors, a reflector, and a plugboard. There are three rotating rotors in an enigma machine. To encrypt/decrypt a message, the users must agree on a starting position for the three rotors. After each letter, one or more of rotors rotates causing the substition to change. The reflector is a special fixed permutation where if a letter x maps to a letter y, then y maps to x. This is important because it allows for decryption. Lastly, the plugboard allows for some subset of the letters to be swapped. When a key is pressed, the letter goes through
+The enigma machine is a substitution cipher where after every letter the substitution is changed. This is implemented using a series of swapping mechanisms: a _plugboard_, three _rotors_, and a _reflector_. 
+All of these components represent some kinds of permutations, with an addition of shifting in each rotor.
+A more detailed spec for each component can be found below:
 
-1. the plugboard,
-2. the three rotors in order,
-3. the reflector,
-4. the three rotors in reverse order,
-5. and finally the plugboard
+1. The plugboard is a symmetric permutation, where if $x$ is mapped to $y$ then $y$ is mapped to $x$. 
+2. A rotor's permutation ensures that no letter maps into itself.
+3. The reflector has a permutation which combines both properties from the plugboard and the rotor.
 
-and the the enigma machine returns the resulting letter. Note that there are many variants of the enigma machine but this is the one we chose to model.
+Given a configuration of the three components, a letter would be encrypted through the following sequence:
+
+1. The input is fed into the plugboard,
+2. The three rotors in order left-middle-right,
+3. The reflector, which "reflect",
+4. The three rotors, now in order right-middle-left,
+5. The plugboard again before output.
 
 ### Model and Visualization
 
@@ -22,11 +28,11 @@ We model the encryption of a single letter. In place of the actual alphabet we u
 
 ### Proving Properties
 
-We use our model to prove two important properties of the enigma machine:
+We use our model to test two important properties of the enigma machine:
 
-* Symmetry: If a letter x encrypted to a letter y, then letter y encrypts to x. This is important because it allows the enigma machine to decrypt messages as well as encrypt them. Simply the the encrypted message, set up the rotators and plugboard the same way as when the message was encrypted, and type the encrypted message to get back the original message. To prove this, we simply use an assert statement to prove that a valid enigma machine and its corresponding encryption must return a symmetric permutation.
+* _**Symmetry**_. In other words, the cipher is _self-reciprocal_: If a letter x encrypted to a letter y, then letter y encrypts to x. This property allows the enigma machine to decrypt messages as well as encrypt them. To prove this, we simply use an assert statement in Forge.
 
-* No fixed points: For all letters x, x does not map to x. This property turned out to be a weakness of the enigma machine that helped to crack it. To prove it we again use an assert statement to show that a valid enigma machine and message is sufficient to know that there are no fixed points.
+* _**No fixed points**_. A number of sources point out that including the reflector introduces a new weakness to the cipher: No letter can be encrypted into itself. However, in our modeling, we successfully point out that there is even a case in which the whole cipher is an _identical map_. 
 
 ### Modeling Decisions
 

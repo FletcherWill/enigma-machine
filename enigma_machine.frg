@@ -10,7 +10,8 @@ abstract sig Permutation {
 
 abstract sig Rotor extends Permutation {
     -- Starting index of rotor
-    start: one Int 
+    start: one Int,
+    shift: set Int->Int
 }
  
 one sig Plugboard extends Permutation{}
@@ -19,12 +20,13 @@ one sig Rotor2 extends Rotor{}
 one sig Rotor3 extends Rotor{}
 one sig Reflector extends Permutation{}
 
--- TODO abstract this so that it updates as rotors turn
 one sig Encryption extends Permutation{}
 
--- TODO add plugboard or other variants if we want
-
 ---------- Valid Enigma Machine ----------
+
+fun numInt: one Int {
+    #{x: Int | {}}
+}
 
 pred isPermutation[p : Permutation] {
     -- All letters map somewhere
@@ -47,17 +49,23 @@ pred isPlugboard {
     }
 }
 
-pred isRotor[p : Permutation] {
-    isPermutation[p]
+pred isRotor[r : Rotor] {
+    isPermutation[r]
     all x: Int | {
-        (x->x) not in p.map
+        (x->x) not in r.map
+    }
+    all x: Int | {
+        (x->remainder[add[x, r.start], numInt]) in r.shift
     }
 }
 
 pred isReflector {
-    isRotor[Reflector]
+    isPermutation[Reflector]
     all x,y: Int | {
         ((x->y) in Reflector.map) => ((y->x) in Reflector.map)
+    }
+    all x: Int | {
+        (x->x) not in Reflector.map
     }
 }
 
@@ -71,10 +79,17 @@ pred validEnigma {
 
 ---------- Valid Encryption ----------
 
--- TODO: Update to take into account starting position of each rotor and to update after each letter
 pred isEncryption {
     isPermutation[Encryption]
-    Encryption.map = (Rotor1.map).(Rotor2.map).(Rotor3.map).(Reflector.map).~(Rotor3.map).~(Rotor2.map).~(Rotor1.map)
+    Encryption.map = (Plugboard.map)
+                        .(Rotor1.shift).(Rotor1.map).~(Rotor1.shift)
+                        .(Rotor2.shift).(Rotor2.map).~(Rotor2.shift)
+                        .(Rotor3.shift).(Rotor3.map).~(Rotor3.shift)
+                        .(Reflector.map)
+                        .(Rotor3.shift).(Rotor3.map).~(Rotor3.shift)
+                        .(Rotor2.shift).(Rotor2.map).~(Rotor2.shift)
+                        .(Rotor1.shift).(Rotor1.map).~(Rotor1.shift)
+                        .(Plugboard.map)
 }
 
 ---------- Tests ----------
@@ -96,8 +111,5 @@ pred isSymmetric {
     }
 }
 assert {validEnigma and isEncryption} is sufficient for isSymmetric for 2 Int
-
-
-
 
 run {validEnigma and isEncryption} for 2 Int
