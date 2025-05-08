@@ -4,11 +4,11 @@
 
 ## Introduction
 
-The enigma machine was used by Germany in World War II to encrypt and decrypt messages. The Allies, led by Alan Turing, were able to "crack" the enigma machine and read the German's messages, an achievement which is credited with greatly shortening and maybe even changing the outcome of the war. In this project, we modeled the Enigma machine with Forge and used our model to demonstrate important properties. Namely, we show that decryption a message is the same as "encrypting" the ciphertext, and that no letter is encoded as itself. The latter is a cryptographic weakness that the Allies were able to use to break the Enigma machine.
+The Enigma machine was used by Germany in World War II to encrypt and decrypt messages. The Allies, led by Alan Turing, were able to "crack" the enigma machine and read the German's messages, an achievement which is credited with greatly shortening and maybe even changing the outcome of the war. In this project, we modeled the Enigma machine with Forge and used our model to demonstrate important properties. Namely, we show that decryption a message is the same as "encrypting" the ciphertext, and that no letter is encoded as itself. The latter is a cryptographic weakness that the Allies were able to use to break the Enigma machine.
 
 ## Background
 
-The Enigma machine is an evolving substitution cipher, where after every input the substitutoin is changed. This is implemented by passing letters through a sequence of permutations: a plugboard, three rotors, and a reflector. To encrypt or decrypt a message, the sender and recipient must agree on a starting configuration for the plugboard and rotors.
+The Enigma machine is a substitution cipher, but after every input the substitution changes. This is implemented by passing letters through a sequence of permutations; the most common setup used a plugboard, three rotors, and a reflector. To encrypt or decrypt a message, the sender and recipient must agree on a starting configuration for the plugboard and rotors.
 
 After inputting each letter, one or more of rotors rotates, resulting in a new permutation to change. This means that traits of the plaintext language are not present in the ciphertext (e.g., the repeated letters in BOOK wouldn't be repeated after encryption).
 
@@ -19,13 +19,9 @@ When a key is pressed, the letter goes through:
 1. the plugboard
 2. the three rotors, in order
 3. the reflector (the three rotors in reverse order)
-5. the plugboard
-
-and the the enigma machine returns the resulting letter. Note that there are many variants of the enigma machine but this is the one we chose to model.
+4. the plugboard
 
 ## Models and Visualizations
-
-### `abstract-model.frg`
 
 Our models represent the encryption of a single letter. We use `Int` to represent letters. Our model works for any size integer, but the running time quickly becomes an issue. The basic structure in our model is `Permutation`, which is an abstract sig that represents a bijective mapping of letters. We also have sigs for each of the three rotors, the plugboard, and the reflector. Each of these is a `Permutation` with some extra properties—the rotors have no fixed points, the plug board is symmetric, and the reflector is both.
 
@@ -33,20 +29,18 @@ Lastly, we have an `Encryption` sig, which is also a `Permutation` that maps eac
 
 ## Proving Properties
 
-We use our model to prove two important properties of the enigma machine:
+We use our model to prove two important properties of the Enigma machine:
 
 ### Symmetry
 
-If a letter x encrypted to a letter y, then letter y encrypts to x. This is important because it allows the enigma machine to decrypt messages as well as encrypt them. Simply the the encrypted message, set up the rotators and plugboard the same way as when the message was encrypted, and type the encrypted message to get back the original message. To prove this, we simply use an assert statement to prove that a valid enigma machine and its corresponding encryption must return a symmetric permutation.
+If a letter x encrypted to a letter y, then letter y encrypts to x. This is important because it allows the Enigma machine to decrypt messages with the same process they are encrypted.
 
 ### No Fixed Points
 
-For all letters x, x does not map to x. This property turned out to be a weakness of the enigma machine that helped to crack it. To prove it we again use an assert statement to show that a valid enigma machine and message is sufficient to know that there are no fixed points.
+No letter can encode as itself. This property turned out to be a weakness of the Enigma machine that helped the Allies crack it—if a plaintext letter mapped to itself in ciphertext, it would be impossible for the plaintext to be a valid message.
 
 ## Modeling Decisions
 
-Our biggest limiting factor when designing our model was runtime. Our model only runs fast for the assertions if we limit our Int to 2 bits.
+Our biggest limiting factor when designing our model was runtime. Even at a 2-bit integer size, the model takes about 30 seconds to run, even with the Glucose solver.
 
-Originally we wanted to model encrypting an entire word. This would have entailed having the rotors rotate after each letter and the encryption being a map from integers to maps instead of being a single map. Although this would have been nice to have, it wasn't necessary to prove either of the properties we are interested in and it seemed to greatly increase the runtime. Once the original state of the enigma machine is set, everything else is deterministic so it should be possible to make this work if one really wanted to. However, this felt more in the spirit of a programming language than forge so we opted against trying to make it work.
-
-Originally we also wanted to model the ability to set a starting point for each rotor. We ended up not doing this because it made our model much messier and because this would have been redundant since we are testing over all valid permutations already. We considered fixing the possible rotors to the small number of rotors that were actually used to speed up the runtime and in this case it would have made sense to include the starting point. However, we decided that it was more interesting to use general rotors because this shows that our properties are fundamental to the enigma machine and not just a byproduct of the specific rotors chosen.
+Originally we wanted to model encrypting an entire word. This would have entailed having the rotors rotate after each letter and the encryption being a map from integers to maps instead of being a single map. Although this would have been nice to have, it wasn't necessary to prove either of the properties we are interested in and it seemed to greatly increase the runtime. Once the original state of the Enigma machine is set, everything else is deterministic so it should be possible to make this work if one really wanted to. However, this felt more in the spirit of a programming language than forge so we opted against trying to make it work.
