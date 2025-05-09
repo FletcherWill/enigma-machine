@@ -23,6 +23,8 @@ When a key is pressed, the letter goes through:
 
 ## Models and Visualizations
 
+*We recommend running our model with Glucose or MiniSatProver.*
+
 Our models represent the encryption of a single letter. We use `Int` to represent letters. Our model works for any size integer, but the running time quickly becomes an issue. The basic structure in our model is `Permutation`, which is an abstract sig that represents a bijective mapping of letters. We also have sigs for each of the three rotors, the plugboard, and the reflector. Each of these is a `Permutation` with some extra properties—the rotors have no fixed points, the plug board is symmetric, and the reflector is both.
 
 Lastly, we have an `Encryption` sig, which is also a `Permutation` that maps each letter to what it encrypts to at that point in time. We require the encryption to respect the structure of the Enigma machine. There is only one possible encryption for a given Enigma machine so the encryption is completely defined by the Enigma machine. We also included a visualization that shows how a letter moves through the sequence of permutations and what it is ultimately encoded as.
